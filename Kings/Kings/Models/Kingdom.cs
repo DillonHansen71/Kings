@@ -11,5 +11,6 @@ namespace Kings.Models.ManageViewModels
         public int KingID { get; set; }
         public int Citizen { get; set; }
         public int Gold { get; set; }
+        public DateTime LastUpdated { get; set; }
     }
 }

@@ -21,6 +21,9 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Gold)
                 </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastUpdated)
+                </th>
             <th></th>
         </tr>
     </thead>
@@ -35,6 +38,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Gold)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastUpdated)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |

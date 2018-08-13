@@ -54,7 +54,7 @@ namespace Kings.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,KingID,Citizen,Gold")] Kingdom kingdom)
+        public async Task<IActionResult> Create([Bind("ID,KingID,Citizen,Gold,LastUpdated")] Kingdom kingdom)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace Kings.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,KingID,Citizen,Gold")] Kingdom kingdom)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,KingID,Citizen,Gold,LastUpdated")] Kingdom kingdom)
         {
             if (id != kingdom.ID)
             {
