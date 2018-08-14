@@ -19,6 +19,25 @@ namespace Kings.Controllers
             _context = context;
         }
 
+        //Calculate resources
+        public IActionResult UpdateResources(int KingID)
+        {
+            //Need to target the Kindom of the currently logged on player
+            //Need to understand how to get the LastUpdated attribute of the currently logged on players Kindom
+            DateTime LastUpdated = DateTime.UtcNow;  //_context.Kingdom.SingleOrDefault(m => m.KingID == KingID);
+
+            //Get current time
+            DateTime UtcNow = DateTime.UtcNow;
+
+
+            //Find the number of seconds between the LastUpdated and now
+            //int seconds = TimeSpan
+
+            //DateTime LastUpdated =
+            return View();
+        }
+
+
         // GET: Kingdoms
         public async Task<IActionResult> Index()
         {
