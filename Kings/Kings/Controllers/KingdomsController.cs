@@ -20,21 +20,33 @@ namespace Kings.Controllers
         }
 
         //Calculate resources
-        public IActionResult UpdateResources(int KingID)
+        public async Task<RedirectToActionResult> UpdateResourcesAsync(int id)
         {
+            //var id = 1;
             //Need to target the Kindom of the currently logged on player
-            //Need to understand how to get the LastUpdated attribute of the currently logged on players Kindom
-            DateTime LastUpdated = DateTime.UtcNow;  //_context.Kingdom.SingleOrDefault(m => m.KingID == KingID);
+            var kingdom = await _context.Kingdom.SingleOrDefaultAsync(m => m.ID == id);
 
             //Get current time
-            DateTime UtcNow = DateTime.UtcNow;
-
+            var UtcNow = DateTime.UtcNow;
 
             //Find the number of seconds between the LastUpdated and now
-            //int seconds = TimeSpan
+            var SecondsSenseLastUpdate = ( UtcNow - kingdom.LastUpdated).TotalSeconds;
+
+            // update gold value
+            kingdom.Gold = Convert.ToInt32(kingdom.Gold + (kingdom.Citizen * SecondsSenseLastUpdate));
+
+            
+            //Update kingdom.lastupdated
+            kingdom.LastUpdated = UtcNow;
+
+            //save changes to DB
+            _context.Update(kingdom);
+            await _context.SaveChangesAsync();
+
+            ViewBag.Goldfield = (id.ToString() + "gold");
 
             //DateTime LastUpdated =
-            return View();
+            return RedirectToAction("Index", kingdom);
         }
 
 
