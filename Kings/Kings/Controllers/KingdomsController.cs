@@ -19,10 +19,15 @@ namespace Kings.Controllers
             _context = context;
         }
 
+        // Returns the KingdomOverview View
+        public async Task<IActionResult> KingdomOverview()
+        {
+            return View(await _context.Kingdom.ToListAsync());
+        }
+
         //Calculate resources
         public async Task<RedirectToActionResult> UpdateResourcesAsync(int id)
         {
-            //var id = 1;
             //Need to target the Kindom of the currently logged on player
             var kingdom = await _context.Kingdom.SingleOrDefaultAsync(m => m.ID == id);
 

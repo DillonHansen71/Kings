@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Kings.Models.ManageViewModels.Kingdom>
+
+@{
+    ViewData["Title"] = "KingdomOverview";
+}
+
+<h2>KingdomOverview</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.KingID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Citizen)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gold)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastUpdated)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KingID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Citizen)
+                </td>
+                <td id="@item.ID">
+                    @Html.DisplayFor(modelItem => item.Gold)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastUpdated)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
