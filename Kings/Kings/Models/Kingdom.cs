@@ -4,6 +4,17 @@ namespace Kings.Models.ManageViewModels
 {
     public class Kingdom
     {
+        public Kingdom(int kingID)
+        {
+            KingID = kingID;
+            Citizen = 1;
+            Gold = 0;
+            LastUpdated = DateTime.UtcNow;
+        }
+        public Kingdom()
+        {
+            
+        }
         public int ID { get; set; }
         public int KingID { get; set; }
         public int Citizen { get; set; }

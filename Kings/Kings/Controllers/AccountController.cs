@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using Kings.Models;
 using Kings.Models.AccountViewModels;
 using Kings.Services;
+using Kings.Data;
 
 namespace Kings.Controllers
 {
@@ -24,13 +25,19 @@ namespace Kings.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
+        private readonly ApplicationDbContext _context;
+        private KingsController _kingsController;
+
 
         public AccountController(
+            ApplicationDbContext context,
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
             ILogger<AccountController> logger)
         {
+            _context = context;
+            _kingsController = new KingsController(_context);
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
@@ -232,6 +239,15 @@ namespace Kings.Controllers
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation("User created a new account with password.");
+
+                    //this is where we create the King and Kingdoms
+                    var king = new King()
+                    {
+                        //TODO: need to pass in a var for this on the view
+                        Name = "RegisteredKing"
+                    };
+                    await _kingsController.RegisterKing(king);
+
                     return RedirectToLocal(returnUrl);
                 }
                 AddErrors(result);

@@ -13,6 +13,7 @@ namespace Kings.Controllers
     public class KingsController : Controller
     {
         private readonly ApplicationDbContext _context;
+         
 
         public KingsController(ApplicationDbContext context)
         {
@@ -64,6 +65,22 @@ namespace Kings.Controllers
             }
             return View(king);
         }
+
+        //Register King
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<King> RegisterKing([Bind("ID,Name")] King king)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(king);
+                await _context.SaveChangesAsync();
+            }
+            var kingdomsController = new KingdomsController(_context);
+            await kingdomsController.Create(king.ID);
+            return king;
+        }
+
 
         // GET: Kings/Edit/5
         public async Task<IActionResult> Edit(int? id)

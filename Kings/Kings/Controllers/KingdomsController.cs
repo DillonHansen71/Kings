@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Kings.Data;
 using Kings.Models.ManageViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Kings.Controllers
 {
@@ -20,12 +21,14 @@ namespace Kings.Controllers
         }
 
         // Returns the KingdomOverview View
+        [Authorize]
         public async Task<IActionResult> KingdomOverview()
         {
             return View(await _context.Kingdom.ToListAsync());
         }
 
         //Calculate resources
+        [Authorize]
         public async Task<RedirectToActionResult> UpdateResourcesAsync(int id)
         {
             //Need to target the Kindom of the currently logged on player
@@ -56,17 +59,19 @@ namespace Kings.Controllers
 
 
         // GET: Kingdoms
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             // If the user is not authenicated redirect to the signin screen
-            if (User.Identity.IsAuthenticated.Equals(false))
-            {
+           // if (User.Identity.IsAuthenticated.Equals(false))
+          //  {
                 
-            }
+           // }
             return View(await _context.Kingdom.ToListAsync());
         }
 
         // GET: Kingdoms/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -85,6 +90,7 @@ namespace Kings.Controllers
         }
 
         // GET: Kingdoms/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -95,18 +101,17 @@ namespace Kings.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,KingID,Citizen,Gold,LastUpdated")] Kingdom kingdom)
+        [Authorize]
+        public async Task<Kingdom> Create(int KingID)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(kingdom);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(kingdom);
+            var kingdom = new Kingdom(KingID);
+            _context.Add(kingdom);
+            await _context.SaveChangesAsync();
+            return kingdom;
         }
 
         // GET: Kingdoms/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -127,6 +132,7 @@ namespace Kings.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("ID,KingID,Citizen,Gold,LastUpdated")] Kingdom kingdom)
         {
             if (id != kingdom.ID)
@@ -158,6 +164,7 @@ namespace Kings.Controllers
         }
 
         // GET: Kingdoms/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -178,6 +185,7 @@ namespace Kings.Controllers
         // POST: Kingdoms/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var kingdom = await _context.Kingdom.SingleOrDefaultAsync(m => m.ID == id);
