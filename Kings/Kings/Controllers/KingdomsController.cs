@@ -61,7 +61,7 @@ namespace Kings.Controllers
             // If the user is not authenicated redirect to the signin screen
             if (User.Identity.IsAuthenticated.Equals(false))
             {
-
+                
             }
             return View(await _context.Kingdom.ToListAsync());
         }
