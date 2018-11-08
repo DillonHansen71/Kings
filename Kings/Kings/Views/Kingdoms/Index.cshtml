@@ -42,7 +42,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Citizen)
                 </td>
-                <td id="@item.ID">
+                <td id="gold">
                     @Html.DisplayFor(modelItem => item.Gold)
                 </td>
                 <td>
@@ -72,9 +72,24 @@
         // sets the text equal
         $('#1').text(updatedgold);
     }
-    updateGold();
+    // change $item.ID to "Gold $item.ID"
+    function updateGold2(goldvalue, id) {
+        //adds 1 to the goldvalue that is displayed
+        var updatedgold = goldvalue + 1;
+        //sets the text equal to the new value
+        $(id).text(updatedgold);
+    }
+    //TODO: Finish new function that will target all gold id's. The idea is to call update gold function in the kingdoms function. The findgold function will find all the id's with gold and fill in the parameters.
+    function findgold() {
+        $(gold).each(function () {
+            console.log($(this).text());
+
+        });
+    }
+
     setInterval(function () {
-        updateGold();
+        //updateGold();
+        findgold();
     }, 1000);
 
 </script>
