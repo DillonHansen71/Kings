@@ -35,11 +35,11 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
+            <tr id="kingdomtable">
                 <td>
                     @Html.DisplayFor(modelItem => item.KingID)
                 </td>
-                <td>
+                <td id="citizen">
                     @Html.DisplayFor(modelItem => item.Citizen)
                 </td>
                 <td id="gold">
@@ -63,33 +63,43 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
-<script>
-    function updateGold() {
-        // Gets the current value as int
-        var goldval = parseInt($('#1').text())
-        // updatedgold euqlas the current value plus 1
-        var updatedgold = goldval + 1;
-        // sets the text equal
-        $('#1').text(updatedgold);
-    }
-    // change $item.ID to "Gold $item.ID"
-    function updateGold2(goldvalue, id) {
-        //adds 1 to the goldvalue that is displayed
-        var updatedgold = goldvalue + 1;
-        //sets the text equal to the new value
-        $(id).text(updatedgold);
-    }
-    //TODO: Finish new function that will target all gold id's. The idea is to call update gold function in the kingdoms function. The findgold function will find all the id's with gold and fill in the parameters.
-    function findgold() {
+<script> 
+    //works but does not upate all rows only the first one. This does not consider the citizen count either.
+    function updategold() {
         $(gold).each(function () {
-            console.log($(this).text());
+            //converts string to int
+            goldvalue = parseInt($(this).text())
+            var updatedgold = goldvalue + 1;
+            //sets the text equal to the new value
+            $(this).text(updatedgold);
 
         });
     }
 
+    function updategold2() {
+        //finds each table with id kingdomtable
+        $('tr#kingdomtable').each(function () {
+            //TODO: This is not working. I want to target each row then extract the citizen value and gold value in the same row.
+            $('td').each (function () {
+                var citizen = parseInt($('td#citizen').html())
+                console.log(citizen);
+                //alert(citizen);
+
+                //makes sure citizen is a number
+               // if (isNaN(citizen) == 'false') {
+                    //converts string to int
+               //     goldvalue = parseInt($('td#gold').html())
+               //     var updatedgold = goldvalue + citizen;
+                    //sets the text equal to the new value
+               //     $('td#gold').html(updatedgold);
+               // }
+            });
+        });
+    }
+
     setInterval(function () {
-        //updateGold();
-        findgold();
+        //updategold();
+        updategold2();
     }, 1000);
 
 </script>
