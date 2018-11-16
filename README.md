@@ -1,2 +1,2 @@
 # Kings
-Learning Asp.Net
+Learning Asp.Net and being a gangster.
