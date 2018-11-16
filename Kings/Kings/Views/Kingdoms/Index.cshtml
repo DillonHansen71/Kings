@@ -77,26 +77,17 @@
     }
 
     function updategold2() {
-        //finds each table with id kingdomtable
-        $('tr#kingdomtable').each(function () {
-            //TODO: This is not working. I want to target each row then extract the citizen value and gold value in the same row.
-            $('td').each (function () {
-                var citizen = parseInt($('td#citizen').html())
-                console.log(citizen);
-                //alert(citizen);
-
-                //makes sure citizen is a number
-               // if (isNaN(citizen) == 'false') {
-                    //converts string to int
-               //     goldvalue = parseInt($('td#gold').html())
-               //     var updatedgold = goldvalue + citizen;
-                    //sets the text equal to the new value
-               //     $('td#gold').html(updatedgold);
-               // }
-            });
+        //Foreach kingdomtable take the citizen count and add that value to the gold
+        $('tr#kingdomtable').each(function (index) {
+            var citizen = parseInt($('td#citizen:eq('+ index +')').html());
+            goldvalue = parseInt($('td#gold:eq(' + index + ')').html());
+            var updatedgold = goldvalue + citizen;
+            //sets the text equal to the new value
+            $('td#gold:eq(' + index + ')').html(updatedgold);
+            
         });
     }
-
+    //$(window).on('load', updategold2());
     setInterval(function () {
         //updategold();
         updategold2();
