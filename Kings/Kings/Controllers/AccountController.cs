@@ -241,12 +241,12 @@ namespace Kings.Controllers
                     _logger.LogInformation("User created a new account with password.");
 
                     //this is where we create the King and Kingdoms
-                    var king = new King()
-                    {
-                        //TODO: need to pass in a var for this on the view
-                        Name = "RegisteredKing"
-                    };
-                    await _kingsController.RegisterKing(king);
+                    //var king = new King()
+                    //{
+                    //    //TODO: need to pass in a var for this on the view
+                    //    Name = "RegisteredKing"
+                    //};
+                    //await _kingsController.RegisterKing(king);
 
                     return RedirectToLocal(returnUrl);
                 }
